@@ -12,17 +12,19 @@ const initdb = async () =>
     },
   });
 
-// Put logic that accepts some content and adds it to the database
+// TODO: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
 const jateDb = await openDB('jate', 1);
 const tx = jateDb.transaction('jate', 'readwrite');
 const store = tx.objectStore('jate');
 const request = store.put({ id: 1, value: content });
+console.log(request);
+
 const result = await request;
 console.log('data saved', result);
 return result;
 }
-// getDb implemented to add logic for that gets all the content from the database
+// getDb not implemented to add logic for that gets all the content from the database
 export const getDb = async () => {
   const jateDb = await openDB('jate', 1);
   console.log(jateDb);
@@ -31,7 +33,7 @@ export const getDb = async () => {
   const request = store.getAll();
   const result = await request;
   console.log('result.value', result);
-  return result;
+  return result?.value;
 };
 
 initdb();
